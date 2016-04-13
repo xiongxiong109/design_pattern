@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>利用观察者模式写半个todo的例子</title>
+</head>
+<body>
+	<form action="/" onsubmit="return false;" name="todoForm">
+		<input type="text" name="todo">
+	</form>
+	<p>当前共有<span id="count"></span>个列表项</p>
+	<ul class="list"></ul>
+	<script type="text/javascript" src="observer.js"></script>
+	<script type="text/javascript" src="subject.js"></script>
+	<script type="text/javascript" src="example.js"></script>
+</body>
+</html>

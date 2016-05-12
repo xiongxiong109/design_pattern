@@ -9,7 +9,7 @@
 - [观察者(**observer**)模式](#observer "观察者模式")
 - [[发布/订阅(**pub/sub**)模式](#pubsub "发布/订阅模式")
 - [原型(**prototype**)模式](#prototype "原型模式")
-- [单例(**singleton**)模式](#singletion "单例模式")
+- [单例(**singleton**)模式](#singleton "单例模式")
 - [外观(**facade**)模式](#facade "外观模式")
 - [命令(**command**)模式](#command "命令模式")
 

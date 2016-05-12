@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>command模式-- todo</title>
+</head>
+<body>
+	<div id="app">
+		<input type="text" placeholder="请输入文字" id="todo" autocomplete="off">
+		<span id="bind"></span>
+		<div class="box"></div>
+	</div>
+	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript">
+		// 这个Commander是单例的, 永远只会存在一个实例
+		var BearCommander = Command.getCommander();
+
+		var oIpt = document.querySelector('#todo');
+		var oBind = document.querySelector('#bind');
+		var oBox = document.querySelector('.box');
+
+		BearCommander.execute('focus', oIpt); // 输入框自动聚焦
+		
+		oIpt.oninput = function() { // oIpt在输入内容的时候, 执行视图更新命令
+			var str = this.value;
+			BearCommander.execute('update', str, oBind);
+		}
+
+		document.onkeydown = function(e) {
+			var str = oIpt.value;
+			if (e.keyCode == 13 && str != '') { // 按下回车键且input有内容
+				BearCommander.execute('create', str, oBox);
+				BearCommander.execute('clear', oIpt);
+				BearCommander.execute('update', '', oBind);
+			}
+		}
+
+		// 实现事件代理
+		BearCommander.execute('delegate', oBox, 'a', 'click', function() {
+
+			// 点击a 事件后, 移除整条dom, 这里的this已经在事件代理中指向了a标签
+			BearCommander.execute('remove', this.parentNode);
+
+		});
+	</script>
+</body>
+</html>

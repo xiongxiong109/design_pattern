@@ -54,9 +54,7 @@
 	var Command = (function() {
 
 		var instance;
-		// 创建一个初始化Commander的方法,
-		// 这是一个模块内的私有方法, 采用命令模式编写, 
-		// 外部只能通过暴露出去的execute方法来通过执行命令的方式来调用私有方法
+		// 创建一个初始化Commander的方法
 		function initCommander() {
 			return {
 				'show': function() {

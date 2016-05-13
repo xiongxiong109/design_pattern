@@ -12,6 +12,7 @@
 - [单例(**singleton**)模式](#singleton "单例模式")
 - [外观(**facade**)模式](#facade "外观模式")
 - [命令(**command**)模式](#command "命令模式")
+- [工厂(**factory**)模式](#factory "工厂模式")
 
 
 ### <h2 id="observer">观察者模式的理解</h2> ###
@@ -111,4 +112,34 @@
 
 ```js
 	Commander.execute('update', 'xxx', 'ooo');
+```
+
+### <h2 id="factory">工厂模式理解</h2> ###
+
+&nbsp;&nbsp;&nbsp;&nbsp;工厂模式也是一种创建型模式, 当所需要创建的对象十分复杂的时候, 可以使用工厂模式生成。工厂模式中的工厂, 负责完成各种生产线, 并且一个工厂会有多个生产线。工厂函数把具体的生产线函数挂载到了自己的prototype上, 并通过自身的创建方法来new 一个生产线函数的实例, 并传递参数到实例中去, 如下所示:
+
+```js
+    // 1号生产线
+    function Shengchanxian1(opt){}
+    
+    // 2号生产线
+    function Shengchanxian2(opt){}
+    
+    // 工厂
+    function Factory(){}
+    
+    // 工厂默认走1号产品生产线
+    Factory.prototype.lineType = Shengchanxian1;
+    
+    // 工厂有一个创建产品的方法，这个方法可以指定工厂生产哪个生产线
+    Factory.prototype.createProduct = function(opt) {
+    	if (opt.type == '1') { // 走1号生产线
+    		this.lineType = Shengchanxian1;
+    	} else { // 走2号生产线
+    		this.lineType = Shengchanxian2;
+    	}
+    	// 返回一个特定生产线的生产函数的实例, 开始生产
+    	// 这里的opt通过用户操作工厂Factory获取， 然后在这里传递给了特定的生产线构造函数
+    	return new this.lineType(opt);
+    }
 ```

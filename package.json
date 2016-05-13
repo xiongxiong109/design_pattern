@@ -1,0 +1,26 @@
+{
+  "name": "design_patten",
+  "version": "1.0.0",
+  "description": "JavaScript设计模式",
+  "main": "index.js",
+  "dependencies": {
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xiongxiong109/design_pattern.git"
+  },
+  "keywords": [
+    "设计模式"
+  ],
+  "author": "xiongxiong109",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xiongxiong109/design_pattern/issues"
+  },
+  "homepage": "https://github.com/xiongxiong109/design_pattern#readme"
+}

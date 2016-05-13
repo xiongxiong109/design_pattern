@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>UI工厂</title>
+</head>
+<body>
+	<script type="text/javascript" src="BUI.js"></script>
+	<script type="text/javascript">
+	// 使用UI函数创建一个btn
+		var oBtn = BUI.create({
+			'type': 'button',
+			'text': '我是按钮',
+			'events': {
+				'click': function() {
+					console.log('x');
+				}
+			}
+		});
+
+		var oBtn2 = BUI.create({
+			'type': 'button',
+			'text': '点我创建BUI input元素',
+			'events': {
+				'click': function() {
+					createInput();
+				}
+			}
+		});
+
+		document.body.appendChild(oBtn);
+		document.body.appendChild(oBtn2);
+
+		function createInput() {
+			var oIpt = BUI.create({
+				type: 'input',
+				inputType: 'checkbox',
+				// value: '0',
+				events: {
+					'change': function() {
+						console.log(this.checked);
+					}
+				}
+			});
+
+			document.body.appendChild(oIpt);
+		}
+	</script>
+</body>
+</html>

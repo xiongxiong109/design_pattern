@@ -13,6 +13,8 @@
 - [外观(**facade**)模式](#facade "外观模式")
 - [命令(**command**)模式](#command "命令模式")
 - [工厂(**factory**)模式](#factory "工厂模式")
+- [抽象(**abstract**)工厂模式](#abstract "抽象工厂")
+- [混入(mixin)模式](#mixin "混入模式")
 
 
 ### <h2 id="observer">观察者模式的理解</h2> ###
@@ -141,5 +143,70 @@
     	// 返回一个特定生产线的生产函数的实例, 开始生产
     	// 这里的opt通过用户操作工厂Factory获取， 然后在这里传递给了特定的生产线构造函数
     	return new this.lineType(opt);
+    }
+```
+
+### <h2 id="abstract">抽象工厂模式理解</h2> ###
+抽象工厂模式
+
+&nbsp;&nbsp;&nbsp;&nbsp;对比与一个具体的工厂模式而言,一个具体的工厂函数有一系列具体的生产线,使用具体的工厂函数, 可以构造出实现特定的对象实例。
+
+&nbsp;&nbsp;&nbsp;&nbsp;但是对于一个抽象的工厂而言,抽象工厂就只需要负责实现对某一个满足该工厂生产条件的构造函数进行实例化生产简而言之,抽象工厂不需要知道工厂具体应该拥有哪些生产线, 这些生产线也可以轻易地改变,只要这些生产线满足一定的契约, 该工厂就可以对其投入生产。
+
+```js
+    // 一个抽象工厂模块
+    var AbstractFactory = (function() {
+    	var type = []; // 这个工厂中投入生产产品的数组
+    
+    	return {
+    		// 返回一个这个工厂中正在投入生产的某一个产品的实例
+    		'getProduct': function(productName) {
+    			if (type[productName]) {
+    				// 返回一个该产品的实例
+    				return new type[productName]();
+    			}
+    			// 如果该产品没有投入生产, 则返回null
+    			return null;
+    		},
+    		// 将某一个具体的构造函数投入到该工厂中生产
+    		'registerProduct': function(productName, Constructor) {
+    			var proto = Constructor.prototype;
+    			// 检测该产品是否满足某一特定的生产条件, 这里的生产条件假设为brand
+    			if (proto.brand) { // 如果满足该条件, 则在type数组写入该函数, 注册产品
+    				type[productName] = Constructor;
+    				return AbstractFactory;
+    			} else {
+    				return false;
+    			}
+    		}
+    	}
+    })();
+    
+    module.exports = AbstractFactory;
+```
+
+### <h2 id="mixin">混入(mixin)模式</h2> ###
+
+&nbsp;&nbsp;&nbsp;&nbsp;mixin混入模式, 是一种结构型的模式,使用这种模式, 涉及到的概念有**子类**和[超类](http://baike.baidu.com/link?url=553RoY0O0LrnZ-ak2y2tXzBJLn9ASFXdAEBuG1BYOPeInheWhbeWcck_nDphdgypaKQoPwaFE78H3C-yb3Hz1_ "超类")。
+
+> B类的所有实例从A类那里继承了方法, 并且B类仍然可以定义自己的方法,包括对A类原有
+> 方法的重写, 那么我们说B类是一个子类, A类就是一个超类笼统地说就是综合多个类的功能产生一个类。
+
+实现mixin最重要的一个方法就是实现对对象的扩展:
+
+```js
+    function extend(Constructor, mixin) {
+    	// console.log('extend');
+    	if (arguments[2]) { // 有三个以上的参数, 至扩展特定的参数
+    		for (var i = 2, l = arguments.length; i < l; i++) {
+    			Constructor.prototype[arguments[i]] = mixin[arguments[i]];
+    		}
+    	} else { // 扩展所有参数
+    		for (var methodName in mixin) {
+    			if (!Constructor.hasOwnProperty(methodName)) { // 如果构造函数本身没有该方法, 则扩展一个该方法
+    				Constructor.prototype[methodName] = mixin[methodName];
+    			}
+    		}
+    	}
     }
 ```

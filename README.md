@@ -14,7 +14,7 @@
 - [命令(**command**)模式](#command "命令模式")
 - [工厂(**factory**)模式](#factory "工厂模式")
 - [抽象(**abstract**)工厂模式](#abstract "抽象工厂")
-- [混入(mixin)模式](#mixin "混入模式")
+- [混入(**mixin**)模式](#mixin "混入模式")
 
 
 ### <h2 id="observer">观察者模式的理解</h2> ###

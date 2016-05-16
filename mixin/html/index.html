@@ -3,9 +3,188 @@
 <head>
 	<meta charset="UTF-8">
 	<title>mixin模式</title>
+	<style type="text/css">
+		.item{
+			margin:40px 20px 0;
+			float: left;
+			padding: 0;
+			position: relative;
+			width: 150px;
+			height: 150px;
+		}
+		.item-body{
+			position: absolute;
+			width: 90px;
+			height: 60px;
+			background-color: #555;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			-webkit-border-top-right-radius:50px 20px;
+			margin: auto;
+			-webkit-animation: move 0.5s linear infinite both;
+			animation: move 0.5s linear infinite both;
+		}
+		.item-weapon {
+			position: absolute;
+			z-index: -1;
+			right: 0;
+			top: 60px;
+			width: 60px;
+			height: 20px;
+			background-color: #ccc;
+			border-radius: 0px 5px 5px 0px;
+			-webkit-animation: move 0.5s linear infinite both;
+			animation: move 0.5s linear infinite both;
+		}
+		.item-weapon:after{
+			content: '';
+			width: 4px;	
+			height: 28px;
+			background-color: #555;
+			position: absolute;
+			right: 0;
+			top: 0;
+			margin-top: -4px;
+		}
+		.item-wheel-wrap {
+			position: absolute;
+			bottom: 60px;
+			left: 0;
+			width: 100%;
+			height: 0;
+		}
+		.item-wheel {
+			width: 30px;
+			height: 30px;
+			border-radius: 30px;
+			background: -webkit-radial-gradient(80% 20%, closest-corner, #ace, #f96);
+			position: absolute;
+			top: 0;
+			-webkit-animation: rotate 0.5s linear infinite;
+			animation: rotate 0.5s linear infinite;
+		}
+		.item-wheel:first-child {
+			left: 30px;
+		}
+		.item-wheel:last-child {
+			right: 30px;
+		}
+
+		/*灰尘*/
+		.item-dash {
+			position: absolute;
+			left: -20px;
+			bottom: 50px;
+			width: 10px;
+			height: 10px;
+			background-color: #c0c0c0;
+			-webkit-animation: push 0.8s linear infinite both;
+			-o-animation: push 0.8s linear infinite both;
+			animation: push 0.8s linear infinite both;
+		}
+		.item-dash:last-child {
+			-webkit-animation-delay: 0.3s;
+			animation-delay: 0.3s;
+		}
+	.item-dash:after{
+		content: '';
+		display: block;
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 10px;
+		height: 10px;
+		border-radius: 10px;
+		box-shadow:
+		0px -7px 0px 0px #c0c0c0,
+		7px 3px 0px 3px #c0c0c0,
+		-6px 3px 0px 6px #c0c0c0;
+	}
+
+		@-webkit-keyframes rotate {
+			to {
+				-webkit-transform: rotateZ(360deg);
+			}
+		}
+
+		@keyframes rotate {
+			to {
+				transform:rotateZ(360deg);
+			}
+		}
+
+		@-webkit-keyframes move {
+			from {
+				-webkit-transform:translateY(2px);
+			}
+			to {
+				-webkit-transform:translateY(-2px);
+			}
+		}
+
+		@keyframes move {
+			from {
+				transform:translateY(2px);
+			}
+			to {
+				transform:translateY(-2px);
+			}
+		}
+
+		@-webkit-keyframes push {
+			0% {
+				-webkit-transform:translateX(100px) scale(0) rotateZ(0deg);
+				opacity: 0;
+			}
+
+			50% {
+				-webkit-transform:translateX(0px) scale(1) rotateZ(180deg);
+				opacity: 1;
+			}
+			100% {
+				-webkit-transform:translateX(-100px) scale(1.2) rotateZ(360deg);
+				opacity: 0;
+			}
+		}
+
+		@keyframes push {
+			0% {
+				transform:translateX(100px) scale(0) rotateZ(0deg);
+				opacity: 0;
+			}
+
+			50% {
+				transform:translateX(0px) scale(1) rotateZ(180deg);
+				opacity: 1;
+			}
+			100% {
+				transform:translateX(-100px) scale(1.2) rotateZ(360deg);
+				opacity: 0;
+			}
+		}
+	</style>
 </head>
 <body>
 	<h3>mixin模式笼统地讲, 就是把几个子类的方法和属性整合到一起, 形成了一个扩展后的新类</h3>
 	<p>准备在这里实现mixin node篇的汽车与坦克可视化实例</p>
+	<form class="form-group" name="build">
+		<label for="wheel" class="form-control">
+			<input type="checkbox" name="wheel" id="wheel" checked>
+			有轮子
+		</label>
+		<label for="weapon" class="form-control">
+			<input type="checkbox" name="weapon" id="weapon">
+			有大炮
+		</label>
+		<label for="dash" class="form-control">
+			<input type="checkbox" name="dash" id="dash">
+			屁股冒烟
+		</label>
+		<button id="build" type="button">build</button>
+	</form>
+	<div id="carFactory"></div>
+	<script type="text/javascript" src="build.js"></script>
 </body>
 </html>

@@ -8,16 +8,17 @@ MacBook.prototype.add = function() {
 	return 32;
 }
 
-function Decorator(item) {
-	this.item = item;
+function decorator(item) {
+	var v = item.add(); // 在装饰器中先获取了原有对象实例的方法
+	item.add = function() { // 然后在下面改写了该方法
+		return v + 20;
+	}
 }
 
-Decorator.prototype.add = function() {
-	return this.item.add() + 10;
-}
 
-var mac = new MacBook();
-
+var mac = new MacBook(); // 新建实例
+console.log(mac.add());
+decorator(mac); // 装饰实例
 console.log(mac.add());
 
-var dcMac = new Decorator();
+// 装饰者相当于只是改写了实例的方法, 但是并没有对构造函数的prototype做修改

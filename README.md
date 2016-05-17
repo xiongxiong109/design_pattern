@@ -15,6 +15,7 @@
 - [工厂(**factory**)模式](#factory "工厂模式")
 - [抽象(**abstract**)工厂模式](#abstract "抽象工厂")
 - [混入(**mixin**)模式](#mixin "混入模式")
+- [装饰者(**decorator**)模式](#decorator "装饰者模式")
 
 
 ### <h2 id="observer">观察者模式的理解</h2> ###
@@ -209,4 +210,37 @@
     		}
     	}
     }
+```
+
+### <h2 id="decorator">装饰者模式</h2> ###
+
+&nbsp;&nbsp;&nbsp;&nbsp;装饰者模式, 装饰者模式类似于mixin模式, 也是一种结构型的模式。
+使用装饰者模式, 对象可以被新的行为包装或者"装饰", 然后可以继续被使用, 而不必担心被修改的基本对象。
+在不必改变原类文件和使用继承的情况下，动态地扩展一个对象的功能。它是通过创建一个包装对象，也就是装饰来包裹真实的对象。最常见的就是jquery中的`$.extend`方法
+
+```js
+    // 默认配置项
+    var defaults = {
+    	'title': 'tips',
+    	'content': 'content'
+    }
+    
+    // 实际配置项
+    var options = {
+    	'title': 'Hello',
+    	'cb': function() {
+    		console.log('x');
+    	}
+    }
+    
+    // 使用options对defaults进行装饰, 而不是对defaults进行覆盖, 这样产出一个新的对象, 而不会影响到原有的defaults
+    
+    var settings = $.extend({}, defaults, options);
+    
+    console.log(settings);
+    console.log(defaults); // 这里的defaults并没有变, 这是一种装饰器的写法
+    
+    var rewrite = $.extend(defaults, options);
+    console.log(rewrite);
+    console.log(defaults); // 这里的defaults已经被重写了
 ```
